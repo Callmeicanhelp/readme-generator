@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
-const inq = require('inquirer')
+const inquirer = require('inquirer')
 const fs = require('fs')
+const generateMarkdown = require('./utils/generateMarkdown.js')
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -25,54 +26,47 @@ const questions = [
         message: 'How do you run the program??',
     },
     {
-        type: "list",
-        choice: ["apache", "mit", "other"],
-        name: "license",
-        message: "Please use the license name"
+        type: 'list',
+        choices: ['Apache', 'MIT', 'other'],
+        name: 'license',
+        message: "Please choose the license name you're using",
     },
     {
         type: 'input',
-        name: 'distribute',
-        message: 'How do I contribute?',
+        name: 'distribution',
+        message: 'How do I distribute?',
     },
     {
         type: 'input',
-        name: 'Test',
+        name: 'test',
         message: 'How do I test?',
     },
     {
-        type: 'list',
-        name: 'license',
-        message: 'What license will you use for your project?'
+        type: 'input',
+        name: 'Github',
+        message: 'What is your Github username?',
+    },
+    {
+        type: 'input',
+        name: 'Contact Info',
+        message: 'What is your email address?',
     },
 ];
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    .then(data => {
-        const filename = `${data.name
-          .toLowerCase()
-          .split(' ')
-          .join('')}.json`;
-    
-        fs.writeFile(filename, JSON.stringify(data, null, '\t'), err =>
-          err ? console.log(err) : console.log('Success!')
-        );
-      });
+    fs.writeFile(fileName, generateMarkdown(data), err =>
+       err ? console.log(err) : console.log('Success!')
+     );
 }
 
 // TODO: Create a function to initialize app
 function init() {
     inquirer.prompt(questions)
-    .then((inquirerResponse, data) => {   
-    //     console.log("Making ReadMe");
-    //     fs.writeFileSync("ReadMe.md", inquirerResponse, data);
-    // })
-    // .catch((err) => {
-    //     console.log(err);
-    })
-
-    
+    .then(data => {
+        console.log(data);
+        writeToFile('READMESample.md', data)
+    });
 }
 
 // Function call to initialize app
