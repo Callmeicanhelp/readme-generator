@@ -1,5 +1,5 @@
 
-// TODO: Create a function that returns the license section of README
+// Function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   let badge = ''
@@ -10,28 +10,44 @@ function renderLicenseSection(license) {
     case 'MIT':
       badge = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
       break;
-
+    case 'IBM':
+      badge = '[![License: IPL 1.0](https://img.shields.io/badge/License-IPL_1.0-blue.svg)](https://opensource.org/licenses/IPL-1.0)'
+      break;
+    case 'Perl':
+      badge = '[![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)'
+       break;
     default:
       break;
   }
   return badge
 }
 
-// TODO: Create a function to generate markdown for README
+// Function to generate markdown for README
 function generateMarkdown(data) {
   return `# ${data.projectname}
   # Description 
   ${data.description}
+
   # Installation
   ${data.installation}
+
   # Usage
   ${data.usage}
-  # Distribution
-  ${data.distribution}
+
+  # Contribution
+  ${data.contribution}
+
   # License
   ${renderLicenseSection(data.license)}
+
   # Test
   ${data.test}
+
+  # GitHub
+  ${data.GitHub}
+
+  # Email
+  ${data.email}
 `;
 }
 
